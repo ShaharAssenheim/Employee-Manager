@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="Employee_Manager.EmpList_UC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Employee_Manager"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Height="450" Width="1000">
+    <UserControl.Resources>
+        <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <!--<materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight , Duration=0:0:2}">-->
+        <StackPanel Orientation="Horizontal">
+            <DataGrid x:Name="Grid1" ItemsSource="{Binding}" Margin="0,20,0,0" RowHeight="22" Width="600" VerticalAlignment="Top" CanUserSortColumns="False" CanUserAddRows="False" AutoGenerateColumns="False"  Height="420" FontSize="12" materialDesign:DataGridAssist.CellPadding="3 0 3 0" materialDesign:DataGridAssist.ColumnHeaderPadding="3 0 3 0" HorizontalScrollBarVisibility="Visible" VerticalGridLinesBrush="Gray" GridLinesVisibility="All" HorizontalGridLinesBrush="Gray" SelectedCellsChanged="Grid_SelectionChanged">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Worker Number" Binding="{Binding WN}" Width="Auto" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="Auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Shift " Binding="{Binding Shift}" Width="Auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Password " Binding="{Binding Password}" Width="Auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Level" Binding="{Binding Level}" Width="Auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate}" Width="Auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Total Years" Binding="{Binding TotalYears}" Width="*" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+                <Ellipse x:Name="ProfileElipse" Margin="0,15,0,0" Visibility="Hidden" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Ellipse.Fill>
+                        <ImageBrush x:Name="ProfileImg" ImageSource="/Resources/profile.jpg" Stretch="Fill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label Content="Worker Number:" FontSize="18" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    <TextBox x:Name="WNTxt" Margin="10,0,0,0" Width="200" Text="" KeyUp="WNTxtBox_KeyUp" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" BorderThickness="1" FontSize="20"/>
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label Content="Name:" FontSize="18" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    <TextBox x:Name="NameTxt" Margin="98,0,0,0" Width="200" Text="" KeyUp="NameTxt_KeyUp" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" BorderThickness="1" FontSize="20"/>
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label Content="Shift:" FontSize="18" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    <TextBox x:Name="ShiftTxt" Margin="108,0,0,0" Width="200" Text="" KeyUp="ShiftTxt_KeyUp" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" BorderThickness="1" FontSize="20"/>
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label Content="Password:" FontSize="18" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    <TextBox x:Name="PassTxt" Margin="68,0,0,0" Width="200" Text="" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" BorderThickness="1" FontSize="20"/>
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label Content="Level:" FontSize="18" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    <TextBox x:Name="LevelTxt" Margin="105,0,0,0" Width="200" Text="" KeyUp="LvlTxtBox_KeyUp" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" BorderThickness="1" FontSize="20"/>
+                </StackPanel>
+                <StackPanel Margin="65,20,0,0" Orientation="Horizontal">
+                    <Button x:Name="buttonAdd" Content="" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Center" Width="32" Height="32"  ToolTip="Add" Click="BtnAdd_Click" BorderBrush="{x:Null}">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/Resources/new_user.png" Stretch="UniformToFill"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="buttonClear" Content="" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" Width="32" Height="32"  ToolTip="Clear" Click="BtnClear_Click" BorderBrush="{x:Null}">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/Resources/clear.png" Stretch="UniformToFill"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="buttonDelete" Content="" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" Width="32" Height="32" ToolTip="Delete" Click="BtnDelete_Click" BorderBrush="{x:Null}">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/Resources/delete.ico" Stretch="UniformToFill"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="buttonUpdate" Content="" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" Width="32" Height="32" ToolTip="Update" Click="BtnUpdate_Click" BorderBrush="{x:Null}">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/Resources/save.png" Stretch="UniformToFill"/>
+                        </Button.Background>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <!--</materialDesign:TransitioningContent>-->
+    </Grid>
+</UserControl>

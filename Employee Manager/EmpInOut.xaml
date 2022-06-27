@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="Employee_Manager.EmpInOut"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Employee_Manager"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Height="450" Width="1000">
+    <UserControl.Resources>
+        <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <!--<materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight , Duration=0:0:2}">-->
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox x:Name="DepCB" Width="170" Margin="0,10,0,0" SelectedIndex="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" BorderThickness="1" Background="White" SelectionChanged="ComboBox_SelectionChanged">
+                        <ComboBoxItem Content="All" HorizontalContentAlignment="Center"/>
+                        <ComboBoxItem Content="Lines" HorizontalContentAlignment="Center"/>
+                        <ComboBoxItem Content="Setup" HorizontalContentAlignment="Center"/>
+                        <ComboBoxItem Content="Warehouse" HorizontalContentAlignment="Center"/>
+                        <ComboBoxItem Content="Wave soldering" HorizontalContentAlignment="Center"/>
+                    </ComboBox>
+                    <DatePicker x:Name="dp1" Width="200" Margin="70,10,0,0" Background="White" Foreground="CadetBlue" BorderThickness="1" FontSize="20" BorderBrush="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" CalendarClosed="dp1_CalendarClosed"/>
+                    <Button x:Name="Wave_Btn" Click="Wave_Btn_Click" Content="Wave Shift Duration" Margin="70,10,0,0" Foreground="Black" Background="White" BorderBrush="#FF585859"/>
+                </StackPanel>
+                <DataGrid x:Name="Grid1" ItemsSource="{Binding}" Margin="0,10,0,0" RowHeight="22" Width="680" VerticalAlignment="Top" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" CanUserReorderColumns="False" Height="380" FontSize="12" materialDesign:DataGridAssist.CellPadding="3 0 3 0" materialDesign:DataGridAssist.ColumnHeaderPadding="3 0 3 0" HorizontalScrollBarVisibility="Visible" VerticalGridLinesBrush="Gray" GridLinesVisibility="All" HorizontalGridLinesBrush="Gray" SelectedCellsChanged="Grid_SelectionChanged">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Background" Value="{Binding RowColor}"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Date,StringFormat='dd-MM-yyyy'}" Width="Auto" IsReadOnly="True" />
+                        <DataGridTextColumn Header="WN" Binding="{Binding WN}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Name " Binding="{Binding Name}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Department" Binding="{Binding Department}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="In Work" Binding="{Binding In_Work}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Out Work" Binding="{Binding Out_Work}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Line" Binding="{Binding Line}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="In Line" Binding="{Binding In_Line}" Width="Auto" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Out Line" Binding="{Binding Out_Line}" Width="*" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+                <Ellipse x:Name="ProfileElipse" Margin="0,15,0,0" Visibility="Hidden" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Ellipse.Fill>
+                        <ImageBrush x:Name="ProfileImg" ImageSource="/Resources/profile.jpg" Stretch="Fill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label Content="Worker Number:" FontSize="14" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    <TextBox x:Name="WNTxt" Margin="10,0,0,0" Width="159" Text="" KeyUp="WNTxtBox_KeyUp" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" BorderThickness="1" FontSize="14"/>
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label Content="Name:" FontSize="14" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    <TextBox x:Name="NameTxt" Margin="78,0,0,0" KeyUp="NameTxtBox_KeyUp" Width="160" Text="" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" BorderThickness="1" FontSize="14"/>
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label Content="In Work:" FontSize="14" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    <TextBox x:Name="InWorkTxt" Margin="7,0,0,0" Width="50" IsReadOnly="True" Text=""  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" BorderThickness="1" FontSize="14"/>
+                    <Label Content="Out Work:" Margin="34,0,0,0" FontSize="14" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    <TextBox x:Name="OutWorkTxt" Margin="7,0,0,0" Width="50" IsReadOnly="True" Text=""  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" BorderThickness="1" FontSize="14"/>
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label Content="In Line:" FontSize="14" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    <TextBox x:Name="InLineTxt" Margin="16,0,0,0" IsReadOnly="True" Width="50" Text=""  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" BorderThickness="1" FontSize="14"/>
+                    <Label Content="Out Line:" Margin="34,0,0,0" FontSize="14" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    <TextBox x:Name="OutLineTxt" Margin="16,0,0,0" IsReadOnly="True" Width="50" Text=""  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" BorderThickness="1" FontSize="14"/>
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Label Content="Line:" FontSize="14" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    <TextBox x:Name="LineTxt" Margin="10,0,0,0" Width="80" IsReadOnly="True" Text="" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" BorderThickness="1" FontSize="14"/>
+                    <Label Content="Dep:" FontSize="14" Margin="16,0,0,0" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+                    <TextBox x:Name="DepTxt" Margin="8,0,0,0" Width="98" IsReadOnly="True" Text="" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="White" BorderThickness="1" FontSize="14"/>
+                </StackPanel>
+                <StackPanel Margin="110,30,0,0" Orientation="Horizontal">
+                    <Button x:Name="buttonClear" Content="" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" Width="32" Height="32"  ToolTip="Clear" Click="BtnClear_Click" BorderBrush="{x:Null}">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/Resources/clear.png" Stretch="UniformToFill"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="buttonDelete" Content="" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" Width="32" Height="32" ToolTip="Delete" Click="BtnDelete_Click" BorderBrush="{x:Null}">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/Resources/delete.ico" Stretch="UniformToFill"/>
+                        </Button.Background>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <!--</materialDesign:TransitioningContent>-->
+    </Grid>
+</UserControl>
